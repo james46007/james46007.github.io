@@ -1,74 +1,51 @@
 ---
-import { content, paths, type Locale } from "../i18n/content";
+import { profile, type Locale } from "../i18n/content";
+import { site } from "../i18n/site";
+import Icon from "./Icon.astro";
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const t = content[locale].hero;
-const stack = ["TypeScript", "React", "Next.js", "GraphQL", "Storybook", "NestJS", "PostgreSQL", "Prisma", "Docker", "Cypress", "n8n"];
+const t = site[locale];
+const h = t.hero;
+const stack = h.leadStack;
 ---
 
-<section id="top" class="relative mx-auto max-w-[1440px] px-4 pt-[clamp(28px,5vw,56px)] sm:px-[clamp(16px,4vw,56px)]">
-  <div class="label flex flex-wrap justify-between gap-x-6 gap-y-2 text-muted">
-    <span>{t.eyebrow}</span>
-    <span class="inline-flex items-center gap-2">
-      <span class="size-2 rounded-full bg-[#1f9d55] [animation:pulse-dot_2s_infinite]"></span>{t.status}
-    </span>
+<div class="space-y-6">
+  <div class="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1.5 text-xs font-medium text-blue-400">
+    <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>
+    {h.badge}
   </div>
 
-  <h1 class="mt-[clamp(12px,2vw,24px)] font-display text-[clamp(88px,21.5vw,318px)] leading-[0.84] tracking-[-0.01em] uppercase">
-    Jimmy<br />Yar<span class="text-accent [-webkit-text-stroke:3px_var(--ink)]">.</span>
+  <h1 class="gradient-text text-4xl leading-[1.1] font-extrabold sm:leading-none tracking-tight sm:text-6xl lg:text-7xl">
+    {h.title}
   </h1>
 
-  <p
-    class="label absolute top-[clamp(160px,17vw,250px)] right-[clamp(16px,6vw,110px)] grid size-[clamp(112px,13vw,180px)] rotate-[8deg] place-items-center rounded-full border-[1.5px] border-rule bg-accent p-3.5 text-center text-[clamp(10px,1vw,13px)] leading-[1.35] text-on-accent"
-    aria-hidden="true"
-  >
-    <span>{t.sticker.map((line, i) => <>{i > 0 && <br />}{line}</>)}</span>
+  <p class="max-w-2xl text-lg leading-relaxed font-normal text-neutral-400 sm:text-xl">
+    {h.leadBefore} <strong class="font-semibold text-white">{profile.name}</strong>{h.leadAfter}{" "}
+    {stack.map((s, i) => (
+      <>
+        <span class="text-neutral-200">{s}</span>{i < stack.length - 1 ? ", " : ""}
+      </>
+    ))}{h.leadEnd}
   </p>
 
-  <div class="mt-[clamp(28px,4vw,48px)] grid gap-x-14 gap-y-6 border-t-[1.5px] border-rule pt-7 pb-14 md:grid-cols-2">
-    <p class="font-serif text-[clamp(34px,4.2vw,60px)] leading-[1.02] tracking-[-0.01em]">
-      {t.titleA} <em class="bg-accent px-[0.12em] text-on-accent [box-decoration-break:clone]">{t.titleHighlight}</em> {t.titleEnd}
-    </p>
-    <div class="flex flex-col justify-between gap-7">
-      <p class="max-w-[560px] text-[clamp(17px,1.4vw,20px)] leading-[1.55] text-soft">{t.lead}</p>
-      <div class="flex flex-wrap gap-3">
-        <a href="#work" class="group inline-flex min-h-[52px] items-center gap-2.5 bg-ink px-[26px] font-semibold text-paper hover:opacity-85">
-          {t.ctaWork}
-          <svg class="size-[18px] transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
-        </a>
-        <a href={paths[locale].cvPdf} download class="inline-flex min-h-[52px] items-center gap-2.5 border-[1.5px] border-ink px-[26px] font-semibold hover:bg-ink hover:text-paper">
-          {t.ctaCv}
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div aria-hidden="true" class="ink-surface overflow-hidden">
-  <div class="flex w-max [animation:marquee_38s_linear_infinite] py-[18px] font-display text-[clamp(26px,3vw,40px)] whitespace-nowrap uppercase">
-    {[0, 1].map(() => (
-      <span class="pr-7">
-        {stack.map((s) => <>{s}{" "}<span class="text-accent">/</span>{" "}</>)}
-      </span>
-    ))}
+  <div class="flex flex-wrap gap-4 pt-4">
+    <a href="#projects" class="flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-600/25 transition hover:bg-blue-500">
+      {h.ctaProjects}
+      <Icon name="chevron-down" class="h-4 w-4" />
+    </a>
+    <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="glass flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-neutral-300 transition hover:border-neutral-700 hover:text-white">
+      {h.ctaLinkedin}
+      <Icon name="external" class="h-4 w-4" />
+    </a>
   </div>
 </div>
 
-<section aria-label="Key facts" class="mx-auto max-w-[1440px] px-4 sm:px-[clamp(16px,4vw,56px)]">
-  <dl class="grid grid-cols-2 border-b-[1.5px] border-rule lg:grid-cols-4">
-    {t.facts.map((f, i) => (
-      <div class:list={[
-        "py-8 pr-4",
-        i % 2 === 0 && "border-r-[1.5px] border-rule",
-        i % 2 === 1 && "pl-4 lg:pl-6",
-        i === 1 && "lg:border-r-[1.5px] lg:border-rule",
-        i === 2 && "border-t-[1.5px] border-rule lg:border-t-0 lg:pl-6",
-        i === 3 && "border-t-[1.5px] border-rule lg:border-t-0",
-      ]}>
-        <dt class="label text-muted">{f.label}</dt>
-        <dd class="mt-2 font-display text-[clamp(56px,7vw,104px)] leading-[0.9]">{f.value}</dd>
-      </div>
-    ))}
-  </dl>
-</section>
+<div class="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4">
+  {t.stats.map((s) => (
+    <div class="glass-card rounded-2xl p-5">
+      <div class="text-3xl font-bold tracking-tight text-white">{s.value}</div>
+      <div class="mt-1 text-xs font-semibold tracking-wider text-neutral-400 uppercase">{s.label}</div>
+    </div>
+  ))}
+</div>

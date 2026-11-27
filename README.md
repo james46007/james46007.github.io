@@ -11,7 +11,7 @@ npm run dev
 
 ## Edit content
 
-All text, for both languages and for the résumé, lives in [`src/i18n/content.ts`](src/i18n/content.ts). In `profile` you can set:
+Home page text (English and Spanish) lives in [`src/i18n/site.ts`](src/i18n/site.ts). Résumé text and shared details (email, links) live in [`src/i18n/content.ts`](src/i18n/content.ts). In `profile` you can set:
 
 - `photo`: put a file in `public/` and set its path, e.g. `"/photo.jpg"`
 - `pita.demo`: the live demo URL, once Pita is deployed again

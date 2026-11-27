@@ -1,32 +1,27 @@
 ---
-import { content, paths, profile, type Locale } from "../i18n/content";
+import { paths, profile, type Locale } from "../i18n/content";
+import { site } from "../i18n/site";
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const t = content[locale];
+const t = site[locale].contact;
 ---
 
-<section id="contact" class="mt-[clamp(72px,9vw,140px)] border-t-[1.5px] border-rule bg-accent text-on-accent">
-  <div class="mx-auto max-w-[1440px] px-4 pt-[clamp(56px,7vw,96px)] pb-10 sm:px-[clamp(16px,4vw,56px)]">
-    <p class="label">(04) {t.contact.kicker}</p>
-    <h2 class="mt-4 font-display text-[clamp(84px,17vw,260px)] leading-[0.84] uppercase" data-reveal>
-      {t.contact.big[0]}<br />{t.contact.big[1]}
-    </h2>
-    <p class="mt-8 max-w-xl text-lg">{t.contact.body}</p>
-    <a
-      href={`mailto:${profile.email}`}
-      class="mt-6 inline-block font-serif text-[clamp(28px,4vw,60px)] leading-[1.1] break-all underline decoration-2 underline-offset-[10px] hover:decoration-4"
-    >
-      {profile.email}
-    </a>
+<section id="contact" class="glass-card relative mt-28 space-y-6 overflow-hidden rounded-3xl p-8 py-16 text-center">
+  <div class="space-y-3">
+    <h3 class="text-3xl font-extrabold tracking-tight text-white">{t.title}</h3>
+    <p class="mx-auto max-w-md text-sm leading-relaxed text-neutral-400">{t.body}</p>
+  </div>
 
-    <footer class="label mt-14 flex flex-wrap justify-between gap-4 border-t-[1.5px] border-on-accent pt-5 text-[13px]">
-      <nav aria-label="Social" class="flex flex-wrap gap-x-7 gap-y-2">
-        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="hover:underline">{t.contact.linkedin} ↗</a>
-        <a href={profile.github} target="_blank" rel="noopener noreferrer" class="hover:underline">{t.contact.github} ↗</a>
-        <a href={paths[locale].cvPdf} download class="hover:underline">{t.nav.cv} (PDF) ↓</a>
-      </nav>
-      <p>© {new Date().getFullYear()} {profile.fullName}</p>
-    </footer>
+  <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+    <a href={`mailto:${profile.email}`} class="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 transition hover:bg-blue-500">
+      {t.email}
+    </a>
+    <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="glass rounded-xl px-6 py-3 text-sm font-semibold text-neutral-200 transition hover:text-white">
+      {t.linkedin}
+    </a>
+    <a href={paths[locale].cvPdf} download class="glass rounded-xl px-6 py-3 text-sm font-semibold text-neutral-200 transition hover:text-white">
+      {t.cv}
+    </a>
   </div>
 </section>

@@ -1,84 +1,76 @@
 ---
-import { content, paths, type Locale } from "../i18n/content";
+import { paths, profile, type Locale } from "../i18n/content";
+import { site } from "../i18n/site";
+import Icon from "./Icon.astro";
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
-const t = content[locale];
+const t = site[locale];
 const other: Locale = locale === "en" ? "es" : "en";
 const links = [
-  { href: "#work", label: t.nav.work },
-  { href: "#experience", label: t.nav.experience },
   { href: "#about", label: t.nav.about },
+  { href: "#skills", label: t.nav.skills },
+  { href: "#projects", label: t.nav.projects },
   { href: "#contact", label: t.nav.contact },
 ];
-const num = (i: number) => `(${String(i + 1).padStart(2, "0")})`;
 ---
 
-<header class="sticky top-0 z-40 border-b-[1.5px] border-rule bg-paper">
-  <div class="label mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-4 py-2.5 sm:px-[clamp(16px,4vw,56px)]">
-    <a href={paths[locale].home} class="flex items-center gap-2.5 font-medium">
-      <span class="grid size-8 place-items-center bg-ink font-display text-[15px] tracking-normal text-accent dark:bg-accent dark:text-on-accent">JY</span>
-      <span class="hidden sm:inline">Jimmy Yar — {t.nav.issue}</span>
-      <span class="sm:hidden">Jimmy Yar</span>
-    </a>
-
-    <nav class="hidden items-center gap-7 lg:flex" aria-label="Main">
-      {links.map((l, i) => <a href={l.href} class="hover:underline hover:underline-offset-4">{num(i)} {l.label}</a>)}
-    </nav>
-
-    <div class="flex items-center gap-1 sm:gap-3">
-      <a href={paths[other].home} hreflang={other} lang={other} title={t.ui.switchLang} class="px-2 py-2">
-        {locale === "en" ? <>EN / <span class="opacity-50">ES</span></> : <><span class="opacity-50">EN</span> / ES</>}
+<header class="fixed top-0 right-0 left-0 z-50 px-4 py-4 sm:px-6">
+  <div class="glass mx-auto max-w-5xl rounded-2xl shadow-2xl">
+    <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+      <a href={paths[locale].home} class="flex items-center space-x-2">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white shadow-md shadow-blue-500/20">JY</span>
+        <span class="text-lg font-bold tracking-tight text-white">{profile.name}</span>
       </a>
-      <button
-        type="button"
-        data-theme-toggle
-        class="grid size-10 place-items-center hover:bg-ink/10"
-        aria-label={t.ui.theme}
-      >
-        <svg class="size-[18px] dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" /></svg>
-        <svg class="hidden size-[18px] dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
-      </button>
-      <a href={paths[locale].cvPdf} download class="hidden min-h-11 items-center bg-ink px-4 text-paper hover:opacity-85 sm:inline-flex">
-        {t.nav.cv} ↓
-      </a>
-      <button
-        type="button"
-        data-menu-toggle
-        class="grid size-10 place-items-center hover:bg-ink/10 lg:hidden"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        aria-label={t.ui.menu}
-      >
-        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-      </button>
+
+      <nav class="hidden items-center space-x-8 text-sm font-medium text-neutral-400 md:flex" aria-label="Main">
+        {links.map((l) => <a href={l.href} class="transition-colors hover:text-white">{l.label}</a>)}
+      </nav>
+
+      <div class="flex items-center space-x-1 sm:space-x-3">
+        <a
+          href={paths[other].home}
+          hreflang={other}
+          lang={other}
+          title={t.ui.switchLang}
+          class="rounded-xl px-2 py-2 font-mono text-xs uppercase text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+        >
+          {other}
+        </a>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer" class="rounded-xl p-2 text-neutral-400 transition hover:bg-neutral-800 hover:text-white" aria-label="GitHub">
+          <Icon name="github" />
+        </a>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="rounded-xl p-2 text-neutral-400 transition hover:bg-neutral-800 hover:text-white" aria-label="LinkedIn">
+          <Icon name="linkedin" />
+        </a>
+        <a href={`mailto:${profile.email}`} class="hidden items-center rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-blue-600/30 transition hover:bg-blue-500 sm:inline-flex">
+          {t.nav.cta}
+        </a>
+        <button
+          type="button"
+          data-menu-toggle
+          class="rounded-xl p-2 text-neutral-300 transition hover:bg-neutral-800 hover:text-white md:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label={t.ui.menu}
+        >
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <nav id="mobile-menu" class="hidden border-t-[1.5px] border-rule lg:hidden" aria-label="Mobile">
-    <ul class="mx-auto max-w-[1440px] px-4 py-3 sm:px-[clamp(16px,4vw,56px)]">
-      {links.map((l, i) => (
-        <li class="border-b border-line last:border-0">
-          <a href={l.href} class="flex items-baseline gap-4 py-3 font-display text-4xl uppercase" data-menu-link>
-            <span class="label text-muted">{num(i)}</span>{l.label}
-          </a>
+    <nav id="mobile-menu" class="hidden border-t border-white/5 px-4 pb-4 md:hidden" aria-label="Mobile">
+      <ul class="space-y-1 pt-3 text-sm font-medium text-neutral-300">
+        {links.map((l) => <li><a href={l.href} class="block rounded-xl px-3 py-2.5 hover:bg-neutral-800 hover:text-white" data-menu-link>{l.label}</a></li>)}
+        <li class="pt-2">
+          <a href={`mailto:${profile.email}`} class="inline-flex rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white">{t.nav.cta}</a>
         </li>
-      ))}
-      <li class="pt-4 pb-3">
-        <a href={paths[locale].cvPdf} download class="label inline-flex min-h-11 items-center bg-ink px-4 text-paper">{t.nav.cv} ↓</a>
-      </li>
-    </ul>
-  </nav>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <script>
-  const root = document.documentElement;
-  document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
-    const next = root.dataset.theme === "dark" ? "light" : "dark";
-    root.dataset.theme = next;
-    try { localStorage.setItem("theme", next); } catch {}
-  });
-
   const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
   const menu = document.getElementById("mobile-menu");
   const setOpen = (open: boolean) => {

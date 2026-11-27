@@ -1,0 +1,31 @@
+---
+import type { Locale } from "../i18n/content";
+import { site } from "../i18n/site";
+import Icon from "./Icon.astro";
+import SectionTitle from "./SectionTitle.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = site[locale].mindset;
+// Full class names so Tailwind can see them.
+const tones: Record<string, string> = {
+  blue: "bg-blue-500/10 text-blue-400",
+  emerald: "bg-emerald-500/10 text-emerald-400",
+  purple: "bg-purple-500/10 text-purple-400",
+};
+---
+
+<section id="about" class="mt-28 space-y-8">
+  <SectionTitle eyebrow={t.eyebrow} title={t.title} />
+  <div class="grid gap-6 md:grid-cols-3">
+    {t.items.map((item) => (
+      <div class="glass-card space-y-3 rounded-2xl p-6">
+        <div class:list={["flex h-10 w-10 items-center justify-center rounded-xl font-bold", tones[item.color]]}>
+          <Icon name={item.icon as "grid" | "server" | "bolt"} />
+        </div>
+        <h4 class="text-lg font-bold text-white">{item.title}</h4>
+        <p class="text-sm leading-relaxed text-neutral-400">{item.body}</p>
+      </div>
+    ))}
+  </div>
+</section>
