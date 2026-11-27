@@ -11,71 +11,73 @@ const links = [
   { href: profile.pita.repo, label: t.links.repo },
   { href: profile.pita.botRepo, label: t.links.bot },
 ].filter(Boolean) as { href: string; label: string; primary?: boolean }[];
+// Put the subtitle's "WhatsApp" phrase in the accent color.
+const [subBefore, subAfter] = t.subtitle.split(/WhatsApp/);
 ---
 
-<section id="work" class="border-t border-line bg-paper-2/60">
-  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-    <div class="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16" data-reveal>
-      <div>
-        <p class="font-mono text-xs uppercase tracking-[0.18em] text-accent">{t.eyebrow} · 01</p>
-        <h2 class="mt-4 font-display text-6xl tracking-tight sm:text-8xl">{t.title}</h2>
-        <p class="mt-4 max-w-md text-xl leading-snug">{t.subtitle}</p>
-        <p class="mt-6 font-mono text-xs text-muted">{t.role}</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          {links.map((l) => (
-            <a
-              href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class:list={[
-                "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors",
-                l.primary ? "bg-ink text-paper hover:opacity-85" : "border border-ink/20 hover:border-ink",
-              ]}
-            >
-              {l.label}
-              <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
-            </a>
-          ))}
-        </div>
-      </div>
+<section id="work" class="ink-surface mt-[clamp(56px,8vw,112px)]">
+  <div class="mx-auto max-w-[1440px] px-4 py-[clamp(56px,7vw,104px)] sm:px-[clamp(16px,4vw,56px)]">
+    <div class="label flex flex-wrap justify-between gap-3 text-muted">
+      <span>(01) {t.eyebrow}</span>
+      <span>{t.role}</span>
+    </div>
 
-      <div class="space-y-8">
-        <div>
-          <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.problem.title}</h3>
-          <p class="mt-3 text-lg leading-relaxed">{t.problem.body}</p>
-        </div>
-        <div>
-          <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.solution.title}</h3>
-          <p class="mt-3 text-lg leading-relaxed">{t.solution.body}</p>
-        </div>
-      </div>
+    <div class="mt-5 flex flex-wrap items-end justify-between gap-x-12 gap-y-6" data-reveal>
+      <h2 class="font-display text-[clamp(120px,22vw,320px)] leading-[0.8] text-transparent uppercase [-webkit-text-stroke:2px_var(--accent)]">{t.title}</h2>
+      <p class="mb-3 max-w-[540px] font-serif text-[clamp(28px,2.8vw,40px)] leading-[1.08]">
+        {subAfter !== undefined ? <>{subBefore}<em class="text-accent">WhatsApp</em>{subAfter}</> : t.subtitle}
+      </p>
     </div>
 
     {profile.pita.video && (
-      <video class="mt-16 w-full rounded-2xl border border-line" src={profile.pita.video} autoplay muted loop playsinline />
+      <video class="mt-12 w-full border-[1.5px] border-rule" src={profile.pita.video} autoplay muted loop playsinline />
     )}
 
-    <div class="mt-20" data-reveal>
-      <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2">
-        <h3 class="font-display text-3xl sm:text-4xl">{t.diagramTitle}</h3>
-        <p class="text-sm text-muted">{t.diagramCaption}</p>
-      </div>
-      <div class="rounded-2xl border border-line bg-paper p-4 sm:p-8">
-        <ArchitectureDiagram locale={locale} />
-      </div>
+    <div class="mt-14 grid gap-x-16 gap-y-8 md:grid-cols-2" data-reveal>
+      {[t.problem, t.solution].map((b) => (
+        <div>
+          <h3 class="label font-medium text-accent">{b.title}</h3>
+          <p class="mt-3.5 text-[19px] leading-[1.6] text-soft">{b.body}</p>
+        </div>
+      ))}
     </div>
 
-    <ol class="mt-16 grid gap-x-10 gap-y-8 md:grid-cols-2" data-reveal>
+    <div class="mt-[72px] border-t-[1.5px] border-rule pt-7" data-reveal>
+      <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2">
+        <h3 class="label font-medium text-muted">{t.diagramTitle}</h3>
+        <p class="text-sm text-muted">{t.diagramCaption}</p>
+      </div>
+      <ArchitectureDiagram locale={locale} />
+    </div>
+
+    <ol class="mt-16 grid gap-x-16 md:grid-cols-2" data-reveal>
       {t.highlights.map((h, i) => (
-        <li class="flex gap-4 border-t border-line pt-5">
-          <span class="font-mono text-sm text-accent">{String(i + 1).padStart(2, "0")}</span>
-          <p class="leading-relaxed">{h}</p>
+        <li class="flex gap-5 border-t-[1.5px] border-rule py-[22px]">
+          <span class="font-display text-[32px] leading-none text-accent">{String(i + 1).padStart(2, "0")}</span>
+          <p class="text-[17px] leading-[1.55] text-soft">{h}</p>
         </li>
       ))}
     </ol>
 
-    <ul class="mt-12 flex flex-wrap gap-2" aria-label="Stack">
-      {stack.map((s) => <li class="rounded-full border border-line px-3 py-1 font-mono text-xs text-muted">{s}</li>)}
-    </ul>
+    <div class="mt-10 flex flex-wrap items-center justify-between gap-6">
+      <div class="flex flex-wrap gap-3">
+        {links.map((l) => (
+          <a
+            href={l.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={[
+              "inline-flex min-h-[52px] items-center px-6 font-semibold",
+              l.primary ? "bg-accent font-bold text-on-accent hover:opacity-85" : "border-[1.5px] border-ink hover:bg-ink hover:text-paper",
+            ]}
+          >
+            {l.label} ↗
+          </a>
+        ))}
+      </div>
+      <ul class="flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-muted" aria-label="Stack">
+        {stack.map((s) => <li>{s}</li>)}
+      </ul>
+    </div>
   </div>
 </section>

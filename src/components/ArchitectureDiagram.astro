@@ -56,7 +56,7 @@ const packetPath =
 
       {nodes.map((n) => (
         <g class:list={["node", n.strong && "node-strong"]}>
-          <rect x={n.x} y={n.y} width={n.w ?? W} height={H} rx="12" />
+          <rect x={n.x} y={n.y} width={n.w ?? W} height={H} rx="0" />
           <text x={n.x + (n.w ?? W) / 2} y={n.y + (n.note ? 28 : 37)} text-anchor="middle" class="node-label">{n.label}</text>
           {n.note && <text x={n.x + (n.w ?? W) / 2} y={n.y + 47} text-anchor="middle" class="node-note">{n.note}</text>}
         </g>
@@ -74,10 +74,9 @@ const packetPath =
     stroke: var(--line);
     stroke-width: 1.5;
   }
-  [data-theme="dark"] .edge { stroke: #4a4741; }
   .edge-hot {
     stroke: var(--accent);
-    stroke-opacity: 0.55;
+    stroke-opacity: 0.8;
     stroke-dasharray: 5 7;
     animation: flow 1.4s linear infinite;
   }
@@ -86,15 +85,17 @@ const packetPath =
   }
   .node rect {
     fill: var(--node);
-    stroke: var(--line);
-    stroke-width: 1.2;
+    stroke: var(--muted);
+    stroke-opacity: 0.6;
+    stroke-width: 1.5;
   }
-  [data-theme="dark"] .node rect { stroke: #3a3833; }
   .node-strong rect {
     stroke: var(--accent);
-    stroke-width: 2;
-    fill: var(--accent-soft);
+    stroke-opacity: 1;
+    fill: var(--accent);
   }
+  .node-strong .node-label,
+  .node-strong .node-note { fill: var(--on-accent); }
   .node-label {
     font-family: var(--font-sans);
     font-size: 15px;

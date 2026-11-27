@@ -6,53 +6,46 @@ const { locale } = Astro.props;
 const t = content[locale].about;
 ---
 
-<section id="about" class="border-t border-line bg-paper-2/60">
-  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-    <div class="grid gap-12 lg:grid-cols-[320px_1fr] lg:gap-16">
-      <div data-reveal>
-        {profile.photo ? (
-          <img src={profile.photo} alt={t.photoAlt} class="aspect-[4/5] w-full max-w-xs rounded-2xl object-cover" width="320" height="400" loading="lazy" />
-        ) : (
-          <div class="grid aspect-[4/5] w-full max-w-xs place-items-center rounded-2xl bg-accent-soft" aria-hidden="true">
-            <span class="font-display text-8xl text-accent">JY</span>
-          </div>
-        )}
-      </div>
+<section id="about" class="mx-auto max-w-[1440px] px-4 pt-[clamp(64px,8vw,120px)] sm:px-[clamp(16px,4vw,56px)]">
+  <div class="grid items-start gap-x-16 gap-y-10 lg:grid-cols-[minmax(280px,420px)_1fr]">
+    <div class="relative aspect-[4/5] w-full max-w-[420px] border-[1.5px] border-rule bg-accent" data-reveal>
+      {profile.photo ? (
+        <img src={profile.photo} alt={t.photoAlt} class="size-full object-cover" width="420" height="525" loading="lazy" />
+      ) : (
+        <span class="grid size-full place-items-center font-display text-[clamp(120px,14vw,200px)] leading-none text-on-accent" aria-hidden="true">JY</span>
+      )}
+      <span class="label absolute -bottom-[1.5px] -left-[1.5px] bg-ink px-3 py-2 text-paper">{t.location}</span>
+    </div>
 
-      <div data-reveal>
-        <p class="font-mono text-xs uppercase tracking-[0.18em] text-accent">{t.eyebrow}</p>
-        <h2 class="mt-4 font-display text-5xl tracking-tight sm:text-6xl">{t.title}</h2>
-        <div class="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed">
-          {t.body.map((p) => <p>{p}</p>)}
+    <div data-reveal>
+      <h2 class="label text-muted">(03) {t.eyebrow}</h2>
+      <blockquote class="mt-[18px] font-serif text-[clamp(34px,3.6vw,54px)] leading-[1.05]">“{t.quote}”</blockquote>
+      {t.body.map((p) => <p class="mt-6 max-w-[640px] text-lg leading-[1.6] text-soft">{p}</p>)}
+
+      <div class="mt-10 grid gap-x-10 gap-y-7 border-t-[1.5px] border-rule pt-6 sm:grid-cols-2 xl:grid-cols-3">
+        <div>
+          <h3 class="label font-medium text-muted">{t.educationTitle}</h3>
+          {t.education.map((e) => (
+            <div class="mt-3">
+              <p class="font-semibold">{e.degree}</p>
+              <p class="text-[15px] text-muted">{e.school} · {e.period}</p>
+            </div>
+          ))}
         </div>
-
-        <div class="mt-12 grid gap-10 sm:grid-cols-2">
-          <div>
-            <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.educationTitle}</h3>
-            <ul class="mt-4 space-y-4">
-              {t.education.map((e) => (
-                <li>
-                  <p class="font-semibold">{e.degree}</p>
-                  <p class="text-sm text-muted">{e.school} · {e.period}</p>
-                </li>
-              ))}
-            </ul>
-            <h3 class="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.certsTitle}</h3>
-            <ul class="mt-4 space-y-2 text-sm">
-              {t.certs.map((c) => <li>{c}</li>)}
-            </ul>
-          </div>
-          <div>
-            <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.skillsTitle}</h3>
-            <dl class="mt-4 space-y-4">
-              {Object.entries(t.skills).map(([group, items]) => (
-                <div>
-                  <dt class="text-sm font-semibold">{group}</dt>
-                  <dd class="mt-1 text-sm leading-relaxed text-muted">{items.join(" · ")}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+        <div>
+          <h3 class="label font-medium text-muted">{t.certsTitle}</h3>
+          {t.certs.map((c) => <p class="mt-3 font-semibold">{c}</p>)}
+        </div>
+        <div>
+          <h3 class="label font-medium text-muted">{t.skillsTitle}</h3>
+          <dl>
+            {Object.entries(t.skills).map(([group, items]) => (
+              <div class="mt-3">
+                <dt class="font-semibold">{group}</dt>
+                <dd class="text-[15px] leading-relaxed text-muted">{items.join(" · ")}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </div>

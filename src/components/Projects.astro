@@ -6,39 +6,26 @@ const { locale } = Astro.props;
 const t = content[locale].projects;
 ---
 
-<section class="border-t border-line">
-  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
-    <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
-      <div>
-        <p class="font-mono text-xs uppercase tracking-[0.18em] text-accent">{t.eyebrow}</p>
-        <h2 class="mt-4 font-display text-5xl tracking-tight">{t.title}</h2>
-      </div>
-    </div>
-
-    <ul class="mt-10 grid gap-4 md:grid-cols-2">
-      {t.items.map((p) => (
-        <li data-reveal>
-          <a
-            href={p.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex h-full flex-col rounded-2xl border border-line p-6 transition-colors hover:border-ink/40 hover:bg-paper-2/60"
-          >
-            <div class="flex items-baseline justify-between gap-4">
-              <h3 class="text-xl font-semibold">{p.name}</h3>
-              <span class="font-mono text-xs text-muted">{p.year}</span>
-            </div>
-            <p class="mt-3 flex-1 leading-relaxed text-muted">{p.body}</p>
-            <div class="mt-6 flex items-center justify-between gap-4">
-              <span class="font-mono text-xs text-muted">{p.stack.join(" · ")}</span>
-              <span class="inline-flex items-center gap-1 text-sm font-medium transition-colors group-hover:text-accent">
-                {t.viewCode}
-                <svg class="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
-              </span>
-            </div>
-          </a>
-        </li>
-      ))}
-    </ul>
+<section class="mx-auto max-w-[1440px] px-4 pt-[clamp(64px,8vw,112px)] sm:px-[clamp(16px,4vw,56px)]">
+  <h2 class="label text-muted">{t.eyebrow}</h2>
+  <div class="mt-5 grid border-[1.5px] border-rule md:grid-cols-2" data-reveal>
+    {t.items.map((p, i) => (
+      <a
+        href={p.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class:list={[
+          "group flex min-h-60 flex-col gap-4 p-8 transition-colors hover:bg-accent hover:text-on-accent",
+          i > 0 && "border-t-[1.5px] border-rule md:border-t-0 md:border-l-[1.5px]",
+        ]}
+      >
+        <span class="flex justify-between font-mono text-xs text-muted group-hover:text-on-accent">
+          <span>{p.year}</span><span>{t.viewCode} ↗</span>
+        </span>
+        <span class="font-serif text-[clamp(36px,3.2vw,44px)] leading-none">{p.name}</span>
+        <span class="text-[17px] leading-[1.55] text-soft group-hover:text-on-accent">{p.body}</span>
+        <span class="mt-auto font-mono text-xs text-muted group-hover:text-on-accent">{p.stack.join(" · ")}</span>
+      </a>
+    ))}
   </div>
 </section>

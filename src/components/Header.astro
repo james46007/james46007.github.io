@@ -11,64 +11,61 @@ const links = [
   { href: "#about", label: t.nav.about },
   { href: "#contact", label: t.nav.contact },
 ];
+const num = (i: number) => `(${String(i + 1).padStart(2, "0")})`;
 ---
 
-<header class="sticky top-0 z-40 border-b border-line/70 bg-paper/85 backdrop-blur-md">
-  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-    <a href={paths[locale].home} class="font-display text-2xl leading-none tracking-tight">
-      Jimmy Yar<span class="text-accent">.</span>
+<header class="sticky top-0 z-40 border-b-[1.5px] border-rule bg-paper">
+  <div class="label mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-4 py-2.5 sm:px-[clamp(16px,4vw,56px)]">
+    <a href={paths[locale].home} class="flex items-center gap-2.5 font-medium">
+      <span class="grid size-8 place-items-center bg-ink font-display text-[15px] tracking-normal text-accent dark:bg-accent dark:text-on-accent">JY</span>
+      <span class="hidden sm:inline">Jimmy Yar — {t.nav.issue}</span>
+      <span class="sm:hidden">Jimmy Yar</span>
     </a>
 
-    <nav class="hidden items-center gap-7 text-sm text-muted md:flex" aria-label="Main">
-      {links.map((l) => <a href={l.href} class="transition-colors hover:text-ink">{l.label}</a>)}
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Main">
+      {links.map((l, i) => <a href={l.href} class="hover:underline hover:underline-offset-4">{num(i)} {l.label}</a>)}
     </nav>
 
-    <div class="flex items-center gap-1">
-      <a
-        href={paths[other].home}
-        hreflang={other}
-        lang={other}
-        class="rounded-full px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-muted transition-colors hover:bg-paper-2 hover:text-ink"
-        title={t.ui.switchLang}
-      >
-        {other}
+    <div class="flex items-center gap-1 sm:gap-3">
+      <a href={paths[other].home} hreflang={other} lang={other} title={t.ui.switchLang} class="px-2 py-2">
+        {locale === "en" ? <>EN / <span class="opacity-50">ES</span></> : <><span class="opacity-50">EN</span> / ES</>}
       </a>
       <button
         type="button"
         data-theme-toggle
-        class="grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-paper-2 hover:text-ink"
+        class="grid size-10 place-items-center hover:bg-ink/10"
         aria-label={t.ui.theme}
       >
         <svg class="size-[18px] dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" /></svg>
         <svg class="hidden size-[18px] dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
       </button>
-      <a
-        href={paths[locale].cvPdf}
-        class="ml-2 hidden rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition-opacity hover:opacity-85 sm:inline-flex"
-        download
-      >
-        {t.nav.cv}
+      <a href={paths[locale].cvPdf} download class="hidden min-h-11 items-center bg-ink px-4 text-paper hover:opacity-85 sm:inline-flex">
+        {t.nav.cv} ↓
       </a>
       <button
         type="button"
         data-menu-toggle
-        class="grid size-9 place-items-center rounded-full text-ink hover:bg-paper-2 md:hidden"
+        class="grid size-10 place-items-center hover:bg-ink/10 lg:hidden"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label={t.ui.menu}
       >
-        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
       </button>
     </div>
   </div>
 
-  <nav id="mobile-menu" class="hidden border-t border-line md:hidden" aria-label="Mobile">
-    <ul class="mx-auto max-w-6xl px-4 py-3">
-      {links.map((l) => (
-        <li><a href={l.href} class="block py-3 font-display text-3xl" data-menu-link>{l.label}</a></li>
+  <nav id="mobile-menu" class="hidden border-t-[1.5px] border-rule lg:hidden" aria-label="Mobile">
+    <ul class="mx-auto max-w-[1440px] px-4 py-3 sm:px-[clamp(16px,4vw,56px)]">
+      {links.map((l, i) => (
+        <li class="border-b border-line last:border-0">
+          <a href={l.href} class="flex items-baseline gap-4 py-3 font-display text-4xl uppercase" data-menu-link>
+            <span class="label text-muted">{num(i)}</span>{l.label}
+          </a>
+        </li>
       ))}
-      <li class="pt-2 pb-3">
-        <a href={paths[locale].cvPdf} download class="inline-flex rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper">{t.nav.cv}</a>
+      <li class="pt-4 pb-3">
+        <a href={paths[locale].cvPdf} download class="label inline-flex min-h-11 items-center bg-ink px-4 text-paper">{t.nav.cv} ↓</a>
       </li>
     </ul>
   </nav>

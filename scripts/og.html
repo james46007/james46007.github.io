@@ -1,17 +1,21 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
-  html,body{margin:0;width:1200px;height:630px;background:#f6f4ef;color:#17160f}
-  body{box-sizing:border-box;padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between;font-family:Geist,sans-serif}
-  .eyebrow{font-family:"Geist Mono",monospace;font-size:22px;letter-spacing:.12em;text-transform:uppercase;color:#69655a}
-  h1{font-family:"Instrument Serif",serif;font-weight:400;font-size:96px;line-height:.98;margin:0;letter-spacing:-.01em}
-  em{color:#c2410c}
-  .foot{display:flex;justify-content:space-between;font-size:26px;border-top:2px solid #17160f;padding-top:24px}
-  .dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:#c2410c;margin-right:14px;vertical-align:middle}
+  html,body{margin:0;width:1200px;height:630px;background:#f6f5f1;color:#0e0e0e;overflow:hidden}
+  body{box-sizing:border-box;padding:56px 64px;position:relative;font-family:"JetBrains Mono",monospace}
+  .top{display:flex;justify-content:space-between;font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:#4a4a45}
+  h1{font-family:Anton,sans-serif;font-weight:400;font-size:200px;line-height:.9;margin:56px 0 0;white-space:nowrap;text-transform:uppercase}
+  h1 span{color:#d4ff3a;-webkit-text-stroke:4px #0e0e0e}
+  .tag{position:absolute;right:64px;top:300px;width:170px;height:170px;border-radius:50%;background:#d4ff3a;border:2px solid #0e0e0e;display:grid;place-items:center;text-align:center;font-size:16px;line-height:1.35;text-transform:uppercase;transform:rotate(8deg)}
+  .foot{position:absolute;left:64px;right:64px;bottom:48px;border-top:2px solid #0e0e0e;padding-top:18px;display:flex;justify-content:space-between;align-items:baseline}
+  .foot p{margin:0;font-family:"Instrument Serif",serif;font-size:40px}
+  .foot em{background:#d4ff3a;padding:0 .1em}
+  .foot small{font-size:20px;color:#4a4a45}
 </style></head>
 <body>
-  <div class="eyebrow"><span class="dot"></span>Full-stack engineer · Frontend &amp; design systems</div>
-  <h1>I build complete products, <em>from the database to the last pixel.</em></h1>
-  <div class="foot"><span>Jimmy Yar</span><span style="color:#69655a">james46007.github.io</span></div>
+  <div class="top"><span>Full-stack engineer · Frontend &amp; design systems</span><span>UTC−5</span></div>
+  <h1>Jimmy Yar<span>.</span></h1>
+  <div class="tag">7+ years<br>shipping<br>for the web</div>
+  <div class="foot"><p>Complete products, <em>database to pixel.</em></p><small>james46007.github.io</small></div>
 </body></html>

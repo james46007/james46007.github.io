@@ -29,20 +29,23 @@ const en = {
     description:
       "Full-stack software engineer with a frontend edge: design systems, real-time interfaces and complete products, from database to UI. Based in Ecuador, working remotely.",
   },
-  nav: { work: "Work", experience: "Experience", about: "About", contact: "Contact", cv: "Résumé" },
+  nav: { work: "Work", experience: "Experience", about: "About", contact: "Contact", cv: "Résumé", issue: "Portfolio Nº 01" },
   hero: {
     eyebrow: "Full-stack engineer · Frontend & design systems",
+    status: "Open to remote roles · UTC−5",
+    sticker: ["7+ years", "shipping", "for the web"],
     titleA: "I build complete products,",
-    titleB: "from the database to the last pixel.",
+    titleHighlight: "from the database",
+    titleEnd: "to the last pixel.",
     lead:
       "I'm Jimmy, a software engineer from Ecuador. At Airpals I build design systems and real-time logistics interfaces with Next.js, React and GraphQL. On my own, I ship full products end to end.",
     ctaWork: "See the work",
     ctaCv: "Download résumé",
     facts: [
-      { value: "7+ years", label: "building for the web" },
-      { value: "M.Sc.", label: "Web Applications · VIU" },
-      { value: "Airpals", label: "current role" },
-      { value: "UTC−5", label: "remote-ready" },
+      { value: "07+", label: "Years building" },
+      { value: "08", label: "Companies" },
+      { value: "01", label: "SaaS shipped solo" },
+      { value: "M.Sc.", label: "Master's degree · VIU" },
     ],
   },
   pita: {
@@ -93,11 +96,14 @@ const en = {
     eyebrow: "Experience",
     title: "Where I've worked",
     present: "Present",
+    now: "Now",
+    since: "2018 — today",
     jobs: [
       {
         company: "Airpals Workplace Logistics",
         role: "Software Engineer",
         period: "Sep 2024 — Present",
+        from: "2024", to: null as string | null,
         place: "Ibarra, Ecuador",
         points: [
           "Build high-performance frontends in an enterprise Turborepo monorepo with Next.js, React and TypeScript.",
@@ -112,6 +118,7 @@ const en = {
         company: "Fortaleza Brokers",
         role: "Software Developer · Contract",
         period: "Nov 2024 — Jan 2025",
+        from: "2024", to: "2025",
         place: "Ibarra, Ecuador",
         points: [],
         stack: [],
@@ -120,6 +127,7 @@ const en = {
         company: "Papagayo Dev",
         role: "Full-stack Developer",
         period: "May 2021 — Sep 2024",
+        from: "2021", to: "2024",
         place: "Quito, Ecuador",
         points: [],
         stack: [],
@@ -154,10 +162,11 @@ const en = {
   about: {
     eyebrow: "About",
     title: "A bit more about me",
+    quote: "I care about the parts users never see as much as the ones they do.",
     body: [
-      "I care about the parts users never see as much as the ones they do: a clean data model, a predictable API, a component that works with a keyboard.",
-      "I like owning a problem from the first sketch in Figma to the last deploy, and I'm happiest on small teams that ship often.",
+      "A clean data model, a predictable API, a component that works with a keyboard. I like owning a problem from the first sketch in Figma to the last deploy, and I'm happiest on small teams that ship often.",
     ],
+    location: "Ibarra, Ecuador",
     photoAlt: "Portrait of Jimmy Yar",
     educationTitle: "Education",
     education: [
@@ -174,6 +183,8 @@ const en = {
     } as Record<string, string[]>,
   },
   contact: {
+    kicker: "Contact — open to full-time remote roles",
+    big: ["Let's", "talk."],
     title: "Let's build something together.",
     body: "I'm open to full-time remote roles as a full-stack or frontend engineer. The fastest way to reach me is email.",
     email: "Email me",
@@ -205,20 +216,23 @@ const es: Content = {
     description:
       "Ingeniero de software full-stack con enfoque en frontend: sistemas de diseño, interfaces en tiempo real y productos completos, de la base de datos a la interfaz. Desde Ecuador, en remoto.",
   },
-  nav: { work: "Trabajo", experience: "Experiencia", about: "Sobre mí", contact: "Contacto", cv: "CV" },
+  nav: { work: "Trabajo", experience: "Experiencia", about: "Sobre mí", contact: "Contacto", cv: "CV", issue: "Portafolio Nº 01" },
   hero: {
     eyebrow: "Ingeniero full-stack · Frontend y sistemas de diseño",
+    status: "Disponible para remoto · UTC−5",
+    sticker: ["7+ años", "creando", "para la web"],
     titleA: "Construyo productos completos,",
-    titleB: "de la base de datos al último píxel.",
+    titleHighlight: "de la base de datos",
+    titleEnd: "al último píxel.",
     lead:
       "Soy Jimmy, ingeniero de software en Ecuador. En Airpals construyo sistemas de diseño e interfaces logísticas en tiempo real con Next.js, React y GraphQL. Por mi cuenta, llevo productos completos de principio a fin.",
     ctaWork: "Ver el trabajo",
     ctaCv: "Descargar CV",
     facts: [
-      { value: "7+ años", label: "construyendo para la web" },
-      { value: "Máster", label: "Aplicaciones Web · VIU" },
-      { value: "Airpals", label: "puesto actual" },
-      { value: "UTC−5", label: "listo para remoto" },
+      { value: "07+", label: "Años construyendo" },
+      { value: "08", label: "Empresas" },
+      { value: "01", label: "SaaS hecho en solitario" },
+      { value: "M.Sc.", label: "Máster · VIU" },
     ],
   },
   pita: {
@@ -269,11 +283,14 @@ const es: Content = {
     eyebrow: "Experiencia",
     title: "Dónde he trabajado",
     present: "Actualidad",
+    now: "Hoy",
+    since: "2018 — hoy",
     jobs: [
       {
         company: "Airpals Workplace Logistics",
         role: "Software Engineer",
         period: "sep 2024 — actualidad",
+        from: "2024", to: null,
         place: "Ibarra, Ecuador",
         points: [
           "Desarrollo frontends de alto rendimiento en un monorepo empresarial con Turborepo, Next.js, React y TypeScript.",
@@ -288,6 +305,7 @@ const es: Content = {
         company: "Fortaleza Brokers",
         role: "Desarrollador de software · Contrato",
         period: "nov 2024 — ene 2025",
+        from: "2024", to: "2025",
         place: "Ibarra, Ecuador",
         points: [],
         stack: [],
@@ -296,6 +314,7 @@ const es: Content = {
         company: "Papagayo Dev",
         role: "Full-stack Developer",
         period: "may 2021 — sep 2024",
+        from: "2021", to: "2024",
         place: "Quito, Ecuador",
         points: [],
         stack: [],
@@ -330,10 +349,11 @@ const es: Content = {
   about: {
     eyebrow: "Sobre mí",
     title: "Un poco más sobre mí",
+    quote: "Me importan tanto las partes que el usuario nunca ve como las que sí.",
     body: [
-      "Me importan tanto las partes que el usuario nunca ve como las que sí: un modelo de datos limpio, una API predecible, un componente que funciona con teclado.",
-      "Me gusta hacerme cargo de un problema desde el primer boceto en Figma hasta el último despliegue, y disfruto más en equipos pequeños que entregan seguido.",
+      "Un modelo de datos limpio, una API predecible, un componente que funciona con teclado. Me gusta hacerme cargo de un problema desde el primer boceto en Figma hasta el último despliegue, y disfruto más en equipos pequeños que entregan seguido.",
     ],
+    location: "Ibarra, Ecuador",
     photoAlt: "Retrato de Jimmy Yar",
     educationTitle: "Educación",
     education: [
@@ -350,6 +370,8 @@ const es: Content = {
     },
   },
   contact: {
+    kicker: "Contacto — abierto a puestos remotos a tiempo completo",
+    big: ["Hable-", "mos."],
     title: "Construyamos algo juntos.",
     body: "Estoy abierto a puestos remotos a tiempo completo como ingeniero full-stack o frontend. La forma más rápida de contactarme es por correo.",
     email: "Escríbeme",
