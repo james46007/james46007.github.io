@@ -1,0 +1,51 @@
+---
+import { profile, type Locale } from "../i18n/content";
+import { site } from "../i18n/site";
+import Icon from "./Icon.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = site[locale];
+const h = t.hero;
+const stack = h.leadStack;
+---
+
+<div class="space-y-6">
+  <div class="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1.5 text-xs font-medium text-blue-400">
+    <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-400"></span>
+    {h.badge}
+  </div>
+
+  <h1 class="gradient-text text-4xl leading-[1.1] font-extrabold sm:leading-none tracking-tight sm:text-6xl lg:text-7xl">
+    {h.title}
+  </h1>
+
+  <p class="max-w-2xl text-lg leading-relaxed font-normal text-neutral-400 sm:text-xl">
+    {h.leadBefore} <strong class="font-semibold text-white">{profile.name}</strong>{h.leadAfter}{" "}
+    {stack.map((s, i) => (
+      <>
+        <span class="text-neutral-200">{s}</span>{i < stack.length - 1 ? ", " : ""}
+      </>
+    ))}{h.leadEnd}
+  </p>
+
+  <div class="flex flex-wrap gap-4 pt-4">
+    <a href="#projects" class="flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-600/25 transition hover:bg-blue-500">
+      {h.ctaProjects}
+      <Icon name="chevron-down" class="h-4 w-4" />
+    </a>
+    <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="glass flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-neutral-300 transition hover:border-neutral-700 hover:text-white">
+      {h.ctaLinkedin}
+      <Icon name="external" class="h-4 w-4" />
+    </a>
+  </div>
+</div>
+
+<div class="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4">
+  {t.stats.map((s) => (
+    <div class="glass-card rounded-2xl p-5">
+      <div class="text-3xl font-bold tracking-tight text-white">{s.value}</div>
+      <div class="mt-1 text-xs font-semibold tracking-wider text-neutral-400 uppercase">{s.label}</div>
+    </div>
+  ))}
+</div>

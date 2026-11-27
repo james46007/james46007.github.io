@@ -1,0 +1,82 @@
+---
+import { paths, profile, type Locale } from "../i18n/content";
+import { site } from "../i18n/site";
+import Icon from "./Icon.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = site[locale];
+const other: Locale = locale === "en" ? "es" : "en";
+const links = [
+  { href: "#about", label: t.nav.about },
+  { href: "#skills", label: t.nav.skills },
+  { href: "#projects", label: t.nav.projects },
+  { href: "#contact", label: t.nav.contact },
+];
+---
+
+<header class="fixed top-0 right-0 left-0 z-50 px-4 py-4 sm:px-6">
+  <div class="glass mx-auto max-w-5xl rounded-2xl shadow-2xl">
+    <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+      <a href={paths[locale].home} class="flex items-center space-x-2">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white shadow-md shadow-blue-500/20">JY</span>
+        <span class="text-lg font-bold tracking-tight text-white">{profile.name}</span>
+      </a>
+
+      <nav class="hidden items-center space-x-8 text-sm font-medium text-neutral-400 md:flex" aria-label="Main">
+        {links.map((l) => <a href={l.href} class="transition-colors hover:text-white">{l.label}</a>)}
+      </nav>
+
+      <div class="flex items-center space-x-1 sm:space-x-3">
+        <a
+          href={paths[other].home}
+          hreflang={other}
+          lang={other}
+          title={t.ui.switchLang}
+          class="rounded-xl px-2 py-2 font-mono text-xs uppercase text-neutral-400 transition hover:bg-neutral-800 hover:text-white"
+        >
+          {other}
+        </a>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer" class="rounded-xl p-2 text-neutral-400 transition hover:bg-neutral-800 hover:text-white" aria-label="GitHub">
+          <Icon name="github" />
+        </a>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="rounded-xl p-2 text-neutral-400 transition hover:bg-neutral-800 hover:text-white" aria-label="LinkedIn">
+          <Icon name="linkedin" />
+        </a>
+        <a href={`mailto:${profile.email}`} class="hidden items-center rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-lg shadow-blue-600/30 transition hover:bg-blue-500 sm:inline-flex">
+          {t.nav.cta}
+        </a>
+        <button
+          type="button"
+          data-menu-toggle
+          class="rounded-xl p-2 text-neutral-300 transition hover:bg-neutral-800 hover:text-white md:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label={t.ui.menu}
+        >
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16" /></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-menu" class="hidden border-t border-white/5 px-4 pb-4 md:hidden" aria-label="Mobile">
+      <ul class="space-y-1 pt-3 text-sm font-medium text-neutral-300">
+        {links.map((l) => <li><a href={l.href} class="block rounded-xl px-3 py-2.5 hover:bg-neutral-800 hover:text-white" data-menu-link>{l.label}</a></li>)}
+        <li class="pt-2">
+          <a href={`mailto:${profile.email}`} class="inline-flex rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white">{t.nav.cta}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.getElementById("mobile-menu");
+  const setOpen = (open: boolean) => {
+    toggle?.setAttribute("aria-expanded", String(open));
+    menu?.classList.toggle("hidden", !open);
+  };
+  toggle?.addEventListener("click", () => setOpen(toggle.getAttribute("aria-expanded") !== "true"));
+  document.querySelectorAll("[data-menu-link]").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+</script>

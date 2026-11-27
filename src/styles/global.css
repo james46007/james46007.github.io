@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Design tokens: light by default, dark via [data-theme="dark"] on <html>.
+   .ink-surface flips a section to the black "ink" surface in either theme. */
+:root {
+  --paper: #f6f5f1;
+  --ink: #0e0e0e;
+  --soft: #2a2a27;
+  --muted: #4a4a45;
+  --rule: #0e0e0e;
+  --line: #d8d6ce;
+  --node: #ffffff;
+  --accent: #d4ff3a;
+  --on-accent: #0e0e0e;
+  --accent-soft: rgb(212 255 58 / 0.14);
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  --paper: #0f0f0e;
+  --ink: #f1f0ea;
+  --soft: #d6d5ce;
+  --muted: #a3a39c;
+  --rule: #4a4a44;
+  --line: #34342f;
+  --node: #1a1a18;
+  color-scheme: dark;
+}
+.ink-surface {
+  --paper: #0e0e0e;
+  --ink: #f6f5f1;
+  --soft: #e4e4de;
+  --muted: #b8b8b0;
+  --rule: #3a3a36;
+  --line: #3a3a36;
+  --node: #171716;
+  background: var(--paper);
+  color: var(--ink);
+}
+[data-theme="dark"] .ink-surface {
+  --paper: #1a1a18;
+  --node: #232320;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-line: var(--line);
+  --color-node: var(--node);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-display: "Anton", Impact, "Arial Narrow", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@keyframes pulse-dot {
+  50% { opacity: 0.35; }
+}
+
+/* Reveal-on-scroll (enabled only when JS adds .js to <html>) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  * { animation: none !important; }
+}

@@ -1,0 +1,27 @@
+---
+import { paths, profile, type Locale } from "../i18n/content";
+import { site } from "../i18n/site";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = site[locale].contact;
+---
+
+<section id="contact" class="glass-card relative mt-28 space-y-6 overflow-hidden rounded-3xl p-8 py-16 text-center">
+  <div class="space-y-3">
+    <h3 class="text-3xl font-extrabold tracking-tight text-white">{t.title}</h3>
+    <p class="mx-auto max-w-md text-sm leading-relaxed text-neutral-400">{t.body}</p>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+    <a href={`mailto:${profile.email}`} class="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 transition hover:bg-blue-500">
+      {t.email}
+    </a>
+    <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="glass rounded-xl px-6 py-3 text-sm font-semibold text-neutral-200 transition hover:text-white">
+      {t.linkedin}
+    </a>
+    <a href={paths[locale].cvPdf} download class="glass rounded-xl px-6 py-3 text-sm font-semibold text-neutral-200 transition hover:text-white">
+      {t.cv}
+    </a>
+  </div>
+</section>

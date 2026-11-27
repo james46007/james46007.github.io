@@ -1,0 +1,37 @@
+---
+import { profile, type Locale } from "../i18n/content";
+import { site } from "../i18n/site";
+import Layout from "./Layout.astro";
+import Header from "./Header.astro";
+import Hero from "./Hero.astro";
+import Mindset from "./Mindset.astro";
+import Skills from "./Skills.astro";
+import Projects from "./Projects.astro";
+import Contact from "./Contact.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = site[locale];
+---
+
+<Layout locale={locale}>
+  <Header locale={locale} />
+
+  <main class="relative z-10 mx-auto max-w-5xl px-6 pt-36 pb-20">
+    <Hero locale={locale} />
+    <Mindset locale={locale} />
+    <Skills locale={locale} />
+    <Projects locale={locale} />
+    <Contact locale={locale} />
+  </main>
+
+  <footer class="border-t border-neutral-900 py-8 text-center text-xs text-neutral-500">
+    <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
+      <p>© {new Date().getFullYear()} {profile.name}. {t.footer.built}</p>
+      <div class="flex space-x-6">
+        <a href={profile.github} target="_blank" rel="noopener noreferrer" class="transition hover:text-neutral-300">GitHub</a>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="transition hover:text-neutral-300">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+</Layout>
