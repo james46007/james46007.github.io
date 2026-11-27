@@ -1,0 +1,81 @@
+---
+import { content, profile, type Locale } from "../i18n/content";
+import ArchitectureDiagram from "./ArchitectureDiagram.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = content[locale].pita;
+const stack = ["Next.js 16", "React 19", "TypeScript", "Prisma", "PostgreSQL", "Supabase", "Gemini", "n8n", "Docker", "Evolution API"];
+const links = [
+  profile.pita.demo && { href: profile.pita.demo, label: t.links.demo, primary: true },
+  { href: profile.pita.repo, label: t.links.repo },
+  { href: profile.pita.botRepo, label: t.links.bot },
+].filter(Boolean) as { href: string; label: string; primary?: boolean }[];
+---
+
+<section id="work" class="border-t border-line bg-paper-2/60">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16" data-reveal>
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-accent">{t.eyebrow} · 01</p>
+        <h2 class="mt-4 font-display text-6xl tracking-tight sm:text-8xl">{t.title}</h2>
+        <p class="mt-4 max-w-md text-xl leading-snug">{t.subtitle}</p>
+        <p class="mt-6 font-mono text-xs text-muted">{t.role}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          {links.map((l) => (
+            <a
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={[
+                "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors",
+                l.primary ? "bg-ink text-paper hover:opacity-85" : "border border-ink/20 hover:border-ink",
+              ]}
+            >
+              {l.label}
+              <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.problem.title}</h3>
+          <p class="mt-3 text-lg leading-relaxed">{t.problem.body}</p>
+        </div>
+        <div>
+          <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.solution.title}</h3>
+          <p class="mt-3 text-lg leading-relaxed">{t.solution.body}</p>
+        </div>
+      </div>
+    </div>
+
+    {profile.pita.video && (
+      <video class="mt-16 w-full rounded-2xl border border-line" src={profile.pita.video} autoplay muted loop playsinline />
+    )}
+
+    <div class="mt-20" data-reveal>
+      <div class="mb-6 flex flex-wrap items-baseline justify-between gap-2">
+        <h3 class="font-display text-3xl sm:text-4xl">{t.diagramTitle}</h3>
+        <p class="text-sm text-muted">{t.diagramCaption}</p>
+      </div>
+      <div class="rounded-2xl border border-line bg-paper p-4 sm:p-8">
+        <ArchitectureDiagram locale={locale} />
+      </div>
+    </div>
+
+    <ol class="mt-16 grid gap-x-10 gap-y-8 md:grid-cols-2" data-reveal>
+      {t.highlights.map((h, i) => (
+        <li class="flex gap-4 border-t border-line pt-5">
+          <span class="font-mono text-sm text-accent">{String(i + 1).padStart(2, "0")}</span>
+          <p class="leading-relaxed">{h}</p>
+        </li>
+      ))}
+    </ol>
+
+    <ul class="mt-12 flex flex-wrap gap-2" aria-label="Stack">
+      {stack.map((s) => <li class="rounded-full border border-line px-3 py-1 font-mono text-xs text-muted">{s}</li>)}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,60 @@
+---
+import { content, profile, type Locale } from "../i18n/content";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = content[locale].about;
+---
+
+<section id="about" class="border-t border-line bg-paper-2/60">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+    <div class="grid gap-12 lg:grid-cols-[320px_1fr] lg:gap-16">
+      <div data-reveal>
+        {profile.photo ? (
+          <img src={profile.photo} alt={t.photoAlt} class="aspect-[4/5] w-full max-w-xs rounded-2xl object-cover" width="320" height="400" loading="lazy" />
+        ) : (
+          <div class="grid aspect-[4/5] w-full max-w-xs place-items-center rounded-2xl bg-accent-soft" aria-hidden="true">
+            <span class="font-display text-8xl text-accent">JY</span>
+          </div>
+        )}
+      </div>
+
+      <div data-reveal>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-accent">{t.eyebrow}</p>
+        <h2 class="mt-4 font-display text-5xl tracking-tight sm:text-6xl">{t.title}</h2>
+        <div class="mt-6 max-w-2xl space-y-4 text-lg leading-relaxed">
+          {t.body.map((p) => <p>{p}</p>)}
+        </div>
+
+        <div class="mt-12 grid gap-10 sm:grid-cols-2">
+          <div>
+            <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.educationTitle}</h3>
+            <ul class="mt-4 space-y-4">
+              {t.education.map((e) => (
+                <li>
+                  <p class="font-semibold">{e.degree}</p>
+                  <p class="text-sm text-muted">{e.school} · {e.period}</p>
+                </li>
+              ))}
+            </ul>
+            <h3 class="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.certsTitle}</h3>
+            <ul class="mt-4 space-y-2 text-sm">
+              {t.certs.map((c) => <li>{c}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-mono text-xs uppercase tracking-[0.18em] text-muted">{t.skillsTitle}</h3>
+            <dl class="mt-4 space-y-4">
+              {Object.entries(t.skills).map(([group, items]) => (
+                <div>
+                  <dt class="text-sm font-semibold">{group}</dt>
+                  <dd class="mt-1 text-sm leading-relaxed text-muted">{items.join(" · ")}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

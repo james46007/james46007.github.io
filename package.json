@@ -1,0 +1,20 @@
+{
+  "name": "james46007-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "cv": "node scripts/build-cv.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^5.18.2",
+    "tailwindcss": "^4.3.5"
+  },
+  "overrides": {
+    "vite": "^6.4.0"
+  }
+}

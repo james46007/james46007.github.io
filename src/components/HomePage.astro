@@ -1,0 +1,41 @@
+---
+import type { Locale } from "../i18n/content";
+import Layout from "./Layout.astro";
+import Header from "./Header.astro";
+import Hero from "./Hero.astro";
+import CaseStudy from "./CaseStudy.astro";
+import Experience from "./Experience.astro";
+import Projects from "./Projects.astro";
+import About from "./About.astro";
+import Contact from "./Contact.astro";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+---
+
+<Layout locale={locale}>
+  <Header locale={locale} />
+  <main>
+    <Hero locale={locale} />
+    <CaseStudy locale={locale} />
+    <Experience locale={locale} />
+    <Projects locale={locale} />
+    <About locale={locale} />
+    <Contact locale={locale} />
+  </main>
+</Layout>
+
+<script>
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    },
+    { rootMargin: "0px 0px -10% 0px" },
+  );
+  document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+</script>

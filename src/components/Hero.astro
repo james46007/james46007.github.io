@@ -1,0 +1,47 @@
+---
+import { content, paths, type Locale } from "../i18n/content";
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = content[locale].hero;
+---
+
+<section class="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:px-6 sm:pt-24 lg:pt-32">
+  <p class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-muted">
+    <span class="relative flex size-2">
+      <span class="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60"></span>
+      <span class="relative inline-flex size-2 rounded-full bg-accent"></span>
+    </span>
+    {t.eyebrow}
+  </p>
+
+  <h1 class="mt-6 max-w-5xl font-display text-[2.9rem] leading-[0.98] tracking-tight sm:text-7xl lg:text-[6.5rem]">
+    {t.titleA}
+    <em class="text-accent">{t.titleB}</em>
+  </h1>
+
+  <p class="mt-8 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">{t.lead}</p>
+
+  <div class="mt-10 flex flex-wrap gap-3">
+    <a href="#work" class="group inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-medium text-white transition-transform hover:-translate-y-0.5 dark:text-paper">
+      {t.ctaWork}
+      <svg class="size-4 transition-transform group-hover:translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+    </a>
+    <a href={paths[locale].cvPdf} download class="inline-flex items-center gap-2 rounded-full border border-ink/20 px-6 py-3 font-medium transition-colors hover:border-ink">
+      {t.ctaCv}
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>
+    </a>
+  </div>
+
+  <dl class="mt-20 grid grid-cols-2 border-t border-line sm:grid-cols-4">
+    {t.facts.map((f, i) => (
+      <div class:list={["py-6 pr-4", i % 2 === 1 && "pl-4 border-l border-line sm:pl-6", i >= 2 && "sm:border-l sm:border-line sm:pl-6", i >= 2 && "border-t border-line sm:border-t-0"]}>
+        <dt class="sr-only">{f.label}</dt>
+        <dd>
+          <span class="block font-display text-3xl sm:text-4xl">{f.value}</span>
+          <span class="mt-1 block text-sm text-muted">{f.label}</span>
+        </dd>
+      </div>
+    ))}
+  </dl>
+</section>

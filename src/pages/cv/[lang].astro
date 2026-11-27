@@ -1,0 +1,105 @@
+---
+// Print-ready résumé. `npm run cv` turns these pages into the PDFs in /public/cv.
+import "../../styles/global.css";
+import { content, profile, type Locale } from "../../i18n/content";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "es" } }];
+}
+
+const locale = Astro.params.lang as Locale;
+const t = content[locale];
+const c = t.cv;
+const site = profile.site.replace("https://", "");
+const linkedin = profile.linkedin.replace("https://www.", "").replace(/\/$/, "");
+const github = profile.github.replace("https://", "");
+---
+
+<!doctype html>
+<html lang={locale} data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <title>{profile.fullName} — CV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Instrument+Serif&display=swap" rel="stylesheet" />
+    <style>
+      @page { size: A4; margin: 14mm 16mm; }
+      html, body { background: #fff; }
+      body { font-size: 10pt; line-height: 1.45; color: #17160f; }
+      h2 { break-after: avoid; }
+      .job { break-inside: avoid; }
+      @media screen { body { max-width: 210mm; margin: 24px auto; padding: 16mm; box-shadow: 0 0 0 1px #ddd; } }
+    </style>
+  </head>
+  <body>
+    <header class="flex items-end justify-between gap-6 border-b border-[#17160f] pb-4">
+      <div>
+        <h1 class="font-display text-[30pt] leading-none">{profile.fullName}</h1>
+        <p class="mt-2 text-[11pt]">{t.hero.eyebrow}</p>
+      </div>
+      <ul class="text-right font-mono text-[8pt] leading-relaxed text-[#4b483f]">
+        <li>{profile.email}</li>
+        <li>{site}</li>
+        <li>{linkedin}</li>
+        <li>{github}</li>
+        <li>Ecuador · UTC−5</li>
+      </ul>
+    </header>
+
+    <section class="mt-5">
+      <h2 class="font-mono text-[8pt] uppercase tracking-wider text-[#c2410c]">{c.summaryTitle}</h2>
+      <p class="mt-1.5">{c.summary}</p>
+    </section>
+
+    <section class="mt-5">
+      <h2 class="font-mono text-[8pt] uppercase tracking-wider text-[#c2410c]">{c.experienceTitle}</h2>
+      {t.experience.jobs.map((job) => (
+        <div class="job mt-3">
+          <div class="flex items-baseline justify-between gap-4">
+            <p><strong class="font-semibold">{job.company}</strong> · {job.role}</p>
+            <p class="shrink-0 font-mono text-[8pt] text-[#4b483f]">{job.period} · {job.place}</p>
+          </div>
+          {job.points.length > 0 && (
+            <ul class="mt-1 list-disc space-y-0.5 pl-4">
+              {job.points.map((p) => <li>{p}</li>)}
+            </ul>
+          )}
+        </div>
+      ))}
+      <div class="job mt-3">
+        <div class="flex items-baseline justify-between gap-4">
+          <p><strong class="font-semibold">{c.earlierTitle}</strong></p>
+          <p class="shrink-0 font-mono text-[8pt] text-[#4b483f]">{t.experience.earlier.period}</p>
+        </div>
+        <p class="mt-1">{t.experience.earlier.text}</p>
+      </div>
+    </section>
+
+    <section class="job mt-5">
+      <h2 class="font-mono text-[8pt] uppercase tracking-wider text-[#c2410c]">{c.projectTitle}</h2>
+      <p class="mt-1.5">{c.projectBody} <span class="font-mono text-[8pt] text-[#4b483f]">github.com/james46007/pita</span></p>
+    </section>
+
+    <div class="job mt-5 grid grid-cols-2 gap-8">
+      <section>
+        <h2 class="font-mono text-[8pt] uppercase tracking-wider text-[#c2410c]">{c.educationTitle}</h2>
+        {t.about.education.map((e) => (
+          <div class="mt-1.5">
+            <p class="font-semibold">{e.degree}</p>
+            <p class="text-[9pt] text-[#4b483f]">{e.school} · {e.period}</p>
+          </div>
+        ))}
+        <h2 class="mt-4 font-mono text-[8pt] uppercase tracking-wider text-[#c2410c]">{c.certsTitle}</h2>
+        <ul class="mt-1.5">{t.about.certs.map((x) => <li>{x}</li>)}</ul>
+      </section>
+      <section>
+        <h2 class="font-mono text-[8pt] uppercase tracking-wider text-[#c2410c]">{c.skillsTitle}</h2>
+        {Object.entries(t.about.skills).map(([group, items]) => (
+          <p class="mt-1.5"><strong class="font-semibold">{group}:</strong> {items.join(", ")}</p>
+        ))}
+      </section>
+    </div>
+  </body>
+</html>

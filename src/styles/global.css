@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Design tokens: light by default, dark via [data-theme="dark"] on <html> */
+:root {
+  --paper: #f6f4ef;
+  --paper-2: #efece4;
+  --ink: #17160f;
+  --muted: #69655a;
+  --line: #dcd7cb;
+  --accent: #c2410c;
+  --accent-soft: #fbe6da;
+  --node: #ffffff;
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  --paper: #121110;
+  --paper-2: #1a1917;
+  --ink: #ece8df;
+  --muted: #9d988c;
+  --line: #2e2c28;
+  --accent: #ff8a4c;
+  --accent-soft: #3a2116;
+  --node: #1d1c19;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-node: var(--node);
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Reveal-on-scroll (enabled only when JS adds .js to <html>) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  * { animation: none !important; }
+}
